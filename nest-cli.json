@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json.schemastore.org/nest-cli",
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "apps/producer/src",
+  "root": "apps/producer",
+  "monorepo": true,
+  "compilerOptions": {
+    "deleteOutDir": true,
+    "tsConfigPath": "apps/producer/tsconfig.app.json",
+    "webpack": true,
+    "watchAssets": true,
+    "assets": [
+      {
+        "include": "**/*.proto",
+        "outDir": "dist"
+      },
+      {
+        "include": "apps/producer/src/data/users.json",
+        "outDir": "dist/apps/producer/data"
+      }
+    ]
+  },
+  "generateOptions": {
+    "spec": false
+  },
+  "projects": {
+    "consumer": {
+      "type": "application",
+      "root": "apps/consumer",
+      "entryFile": "main",
+      "sourceRoot": "apps/consumer/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/consumer/tsconfig.app.json"
+      }
+    },
+    "producer": {
+      "type": "application",
+      "root": "apps/producer",
+      "entryFile": "main",
+      "sourceRoot": "apps/producer/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/producer/tsconfig.app.json",
+        "watchAssets": true,
+        "assets": [
+          {
+            "include": "apps/producer/src/data/users.json",
+            "outDir": "dist/apps/producer/data"
+          }
+        ]
+      }
+    },
+    "shared": {
+      "type": "library",
+      "root": "libs/shared",
+      "entryFile": "index",
+      "sourceRoot": "libs/shared/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/shared/tsconfig.lib.json"
+      }
+    }
+  }
+}
