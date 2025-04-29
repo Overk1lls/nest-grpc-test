@@ -1,5 +1,6 @@
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import 'dotenv/config';
 import { ConsumerModule } from './consumer.module';
 import { ConsumerService } from './consumer.service';
 

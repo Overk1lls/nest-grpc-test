@@ -1,0 +1,29 @@
+name: nest-grpc-test
+
+networks:
+  grpc_net:
+
+services:
+  producer:
+    build:
+      context: .
+      dockerfile: apps/producer/Dockerfile
+    container_name: producer_service
+    environment:
+      - GRPC_PRODUCER_URL=0.0.0.0:5000
+    ports:
+      - "5000:5000"
+    networks:
+      - grpc_net
+
+  consumer:
+    build:
+      context: .
+      dockerfile: apps/consumer/Dockerfile
+    container_name: consumer_service
+    environment:
+      - GRPC_PRODUCER_URL=producer:5000
+    depends_on:
+      - producer
+    networks:
+      - grpc_net

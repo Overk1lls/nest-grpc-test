@@ -8,6 +8,6 @@ export const grpcUsersOptions: GrpcOptions = {
   options: {
     package: 'users',
     protoPath: join(__dirname, '..', '..', '..', 'proto', 'users.proto'),
-    url: 'localhost:5000',
+    url: process.env.GRPC_PRODUCER_URL ?? 'localhost:5000',
   },
 };
